@@ -14,6 +14,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Spinner } from "@/components/ui/spiner";
+
+interface PropsType {
+  onSubmit: any;
+  isLoading: boolean;
+}
 
 const text = {
   title: "ورود به کالری ای‌آی",
@@ -26,11 +32,6 @@ const text = {
 };
 
 const phoneRegex = /^(09\d{9}|\+989\d{9}|00989\d{9})$/;
-
-interface PropsType {
-  onSubmit: any;
-  isLoading: boolean;
-}
 
 const formSchema = z.object({
   phoneNumber: z
@@ -73,7 +74,7 @@ const Auth: React.FC<PropsType> = ({ onSubmit, isLoading }) => {
                     type="text"
                     dir="ltr"
                     id="phoneNumber"
-                    placeholder="+989121234567"
+                    placeholder="09120001234"
                     {...field}
                   />
                 </FormControl>
@@ -87,7 +88,10 @@ const Auth: React.FC<PropsType> = ({ onSubmit, isLoading }) => {
             className="cursor-pointer"
             disabled={isLoading}
           >
+            {isLoading && <Spinner className="w-8 h-8 text-white" />}
+
             {text.buttonTitle}
+            <div className="flex justify-center items-center"></div>
           </Button>
         </form>
       </Form>
