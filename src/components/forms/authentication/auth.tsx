@@ -70,6 +70,7 @@ const Auth: React.FC<PropsType> = ({ onSubmit, isLoading }) => {
                 <FormLabel htmlFor="phoneNumber">{text.phoneLabel}</FormLabel>
                 <FormControl>
                   <Input
+                    autoFocus
                     required
                     type="text"
                     dir="ltr"
@@ -88,7 +89,9 @@ const Auth: React.FC<PropsType> = ({ onSubmit, isLoading }) => {
             className="cursor-pointer"
             disabled={isLoading}
           >
-            {isLoading && <Spinner className="w-8 h-8 text-white" />}
+            {isLoading && (
+              <Spinner className="w-8 h-8 text-white" variant="circle" />
+            )}
 
             {text.buttonTitle}
             <div className="flex justify-center items-center"></div>
