@@ -1,17 +1,11 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import ConfirmationModal from "@/components/modals/confirmationModal";
 
 interface UserInfo {
   email: string;
@@ -27,10 +21,9 @@ interface UserInfo {
   };
 }
 
-export default function UserProfileView() {
+export default function WelcomeToUser() {
   const router = useRouter();
-  function get
-  const [user, setUser] = useState<UserInfo | null>(() =>  localStorage.getItem("user-info"));
+  const [user, setUser] = useState<UserInfo | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user-info");
@@ -41,32 +34,39 @@ export default function UserProfileView() {
     }
   }, [router]);
 
-  console.log(user);
+  const handleLogout = () => {
+    localStorage.removeItem("user-info");
+    router.push("/login");
+  };
+
+  if (!user) return null;
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
       <Card className="w-[350px] shadow-lg">
         <CardHeader className="flex flex-col items-center">
           <Avatar className="w-20 h-20 mb-3">
-            <AvatarImage src={user?.picture.large} alt={user?.name.first} />
+            <AvatarImage src={user.picture.large} alt={user.name.first} />
             <AvatarFallback>
-              {user?.name.first.charAt(0)}
-              {user?.name.last.charAt(0)}
+              {user.name.first.charAt(0)}
+              {user.name.last.charAt(0)}
             </AvatarFallback>
           </Avatar>
-          <CardTitle className="text-xl font-semibold">
-            Welcome {user?.name.title} {user?.name.first} {user?.name.last}
+          <CardTitle className="text-xl font-semibold text-center">
+            👋 خوش اومدی {user.name.title} {user.name.first} {user.name.last}
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-center">
-          <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
-            Email: {user?.email}
-          </h4>
-        </CardContent>
-        <CardFooter>
-          <Button variant={"destructive"} className="w-full cursor-pointer">
+        <CardContent className="flex flex-col items-center gap-2">
+          <p className="text-gray-600">{user.email}</p>
+          <ConfirmationModal
+            onConfirm={handleLogout}
+            closeTitle="بستن"
+            confirmTitle="خروج"
+            title="آیا برای خروج از پنل مطمعا هستید؟"
+          >
             خروج
-          </Button>
-        </CardFooter>
+          </ConfirmationModal>
+        </CardContent>
       </Card>
     </div>
   );
