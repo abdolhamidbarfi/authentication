@@ -8,21 +8,24 @@ import { Spinner } from "@/components/ui/spiner";
 interface PropsType {}
 
 const Authentication: React.FC<PropsType> = ({}) => {
-  const { data, error, fulfilled, pending, runFetch } = useFetch();
-  const [isUserLogin] = useState(() => localStorage.getItem("user-info"));
-  const router = useRouter();
+  const { data, error, fulfilled, pending, runFetch } = useFetch<{
+    results: { email: string; name: string; picture: object }[];
+  }>();
 
-  if (isUserLogin) {
-    router.replace("/dashboard");
-    return (
-      <div className="flex flex-col min-h-screen justify-center items-center px-4 bg-gray-50">
-        <Spinner variant="circle" size={40} />
-      </div>
-    );
-  }
+  const router = useRouter();
+  const [isUser, setIsUser] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (fulfilled) {
+    const userInfo = localStorage?.getItem("user-info");
+    if (userInfo) {
+      router.replace("/dashboard");
+    } else {
+      setIsUser(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (fulfilled && data?.results.length) {
       const { email, name, picture } = data?.results[0];
       localStorage.setItem(
         "user-info",
@@ -32,10 +35,19 @@ const Authentication: React.FC<PropsType> = ({}) => {
     }
   }, [fulfilled]);
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     runFetch("https://randomuser.me/api/?results=1&nat=us");
   };
 
-  return <>{<Auth onSubmit={onSubmit} isLoading={pending} />}</>;
+  return (
+    <>
+      {isUser === null && (
+        <div className="flex flex-col min-h-screen justify-center items-center px-4 bg-gray-50">
+          <Spinner variant="circle" size={40} />
+        </div>
+      )}
+      {isUser === false && <Auth onSubmit={onSubmit} isLoading={pending} />}
+    </>
+  );
 };
 export default Authentication;

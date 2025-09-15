@@ -35,11 +35,9 @@ const ConfirmationModal: React.FC<PropsType> = ({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="text-right">{title}</AlertDialogTitle>
-          {description && (
-            <AlertDialogDescription className="text-right">
-              {description}
-            </AlertDialogDescription>
-          )}
+          <AlertDialogDescription className="text-right">
+            {description}
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="cursor-pointer">
