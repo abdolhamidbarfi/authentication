@@ -6,7 +6,6 @@ type FetchState<T> = {
   error: string | null;
   data: T | null;
 };
-
 export function useFetch<T = unknown>() {
   const [state, setState] = useState<FetchState<T>>({
     pending: false,

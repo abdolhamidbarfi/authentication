@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import ConfirmationModal from "@/components/modals/confirmationModal";
+import { Spinner } from "@/components/ui/spiner";
 
 interface UserInfo {
   email: string;
@@ -25,6 +25,7 @@ export default function WelcomeToUser() {
   const router = useRouter();
   const [user, setUser] = useState<UserInfo | null>(null);
 
+  //get user-info from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("user-info");
     if (!storedUser) {
@@ -34,12 +35,14 @@ export default function WelcomeToUser() {
     }
   }, [router]);
 
+  //remove user-info from local storage by user action
   const handleLogout = () => {
     localStorage.removeItem("user-info");
     router.push("/login");
   };
 
-  if (!user) return null;
+  // show spiner before render and load data
+  if (!user) return <Spinner className="w-8 h-8 text-white" variant="circle" />;
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
@@ -58,6 +61,7 @@ export default function WelcomeToUser() {
         </CardHeader>
         <CardContent className="flex flex-col items-center gap-2">
           <p className="text-gray-600">{user.email}</p>
+          {/* show modal to control logout user */}
           <ConfirmationModal
             onConfirm={handleLogout}
             closeTitle="بستن"

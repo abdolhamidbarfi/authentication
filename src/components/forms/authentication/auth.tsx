@@ -17,12 +17,12 @@ import {
 import { Spinner } from "@/components/ui/spiner";
 
 interface PropsType {
-  onSubmit: any;
+  onSubmit: () => void;
   isLoading: boolean;
 }
 
 const text = {
-  title: "ورود به کالری ای‌آی",
+  title: "ورود به ترینینگ ای‌آی",
   desciption: "برای ورود شماره موبایل یا ایمیل خود را وارد کنید",
   phoneLabel: "شماره موبایل",
   buttonTitle: "ورود",
@@ -44,6 +44,7 @@ const formSchema = z.object({
 });
 
 const Auth: React.FC<PropsType> = ({ onSubmit, isLoading }) => {
+  //add useForm to control form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

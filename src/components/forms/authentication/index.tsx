@@ -8,6 +8,7 @@ import { Spinner } from "@/components/ui/spiner";
 interface PropsType {}
 
 const Authentication: React.FC<PropsType> = ({}) => {
+  //handle request to api path
   const { data, error, fulfilled, pending, runFetch } = useFetch<{
     results: { email: string; name: string; picture: object }[];
   }>();
@@ -35,7 +36,7 @@ const Authentication: React.FC<PropsType> = ({}) => {
     }
   }, [fulfilled]);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = () => {
     runFetch("https://randomuser.me/api/?results=1&nat=us");
   };
 
