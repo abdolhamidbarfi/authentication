@@ -1,13 +1,8 @@
-import Auth from "@/components/forms/authentication/auth";
-import Otp from "@/components/forms/authentication/otp";
+import Authentication from "@/components/forms/authentication";
 import { NextPage } from "next";
 
 const Login: NextPage = () => {
-  return (
-    <>
-      <Otp phoneNumber="09392752406" />
-    </>
-  );
+  return <Authentication />;
 };
 
 export default Login;
