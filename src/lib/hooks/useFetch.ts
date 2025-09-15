@@ -32,11 +32,15 @@ export function useFetch<T = unknown>() {
         error: null,
         data,
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
+      let message = "Something went wrong";
+      if (err instanceof Error) {
+        message = err.message;
+      }
       setState({
         pending: false,
         fulfilled: false,
-        error: err.message || "Something went wrong",
+        error: message,
         data: null,
       });
     }

@@ -5,9 +5,7 @@ import { useFetch } from "@/lib/hooks/useFetch";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spiner";
 
-interface PropsType {}
-
-const Authentication: React.FC<PropsType> = ({}) => {
+const Authentication: React.FC = () => {
   //handle request to api path
   const { data, error, fulfilled, pending, runFetch } = useFetch<{
     results: { email: string; name: string; picture: object }[];
