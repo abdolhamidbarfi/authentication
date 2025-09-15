@@ -9,7 +9,8 @@ export default function Home() {
 
   useEffect(() => {
     route.push("/login");
-  });
+  }, []);
+
   return (
     <>
       <Spinner className="w-8 h-8 text-white" variant="circle" />
