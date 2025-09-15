@@ -14,14 +14,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Dispatch } from "react";
 
 const text = {
   title: "ورود به کالری ای‌آی",
   desciption: "برای ورود شماره موبایل یا ایمیل خود را وارد کنید",
   phoneLabel: "شماره موبایل",
-  buttonTitle: "دریافت کد تایید",
+  buttonTitle: "ورود",
+  validation: {
+    incorrect: "لطفا یک شماره همراه صحیح وارد کنید",
+  },
 };
+
+const phoneRegex = /^(09\d{9}|\+989\d{9}|00989\d{9})$/;
 
 interface PropsType {
   onSubmit: any;
@@ -29,9 +33,13 @@ interface PropsType {
 }
 
 const formSchema = z.object({
-  phoneNumber: z.string().min(2, {
-    message: "لطفا یک شماره همراه صحیح وارد کنید",
-  }),
+  phoneNumber: z
+    .string()
+    .min(11, { message: text.validation.incorrect })
+    .max(14, { message: text.validation.incorrect })
+    .refine((val) => phoneRegex.test(val), {
+      message: text.validation.incorrect,
+    }),
 });
 
 const Auth: React.FC<PropsType> = ({ onSubmit, isLoading }) => {
@@ -61,6 +69,7 @@ const Auth: React.FC<PropsType> = ({ onSubmit, isLoading }) => {
                 <FormLabel htmlFor="phoneNumber">{text.phoneLabel}</FormLabel>
                 <FormControl>
                   <Input
+                    required
                     type="text"
                     dir="ltr"
                     id="phoneNumber"
