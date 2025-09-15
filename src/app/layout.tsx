@@ -5,7 +5,7 @@ import yekanBakh from "@/assets/fonts/yekanBakh";
 export const metadata: Metadata = {
   title: {
     default: "Training AI",
-    template: "Training AI | %s",
+    template: "%s | Training AI ",
   },
   description:
     "Training AI is a platform for learning and experimenting with artificial intelligence, machine learning, and data science projects, offering tutorials, tools, and resources for developers and enthusiasts.",

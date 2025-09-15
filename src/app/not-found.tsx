@@ -11,7 +11,7 @@ export default function NotFound() {
       <Link href="/">
         <Button variant={"default"} className="cursor-pointer">
           بازگشت به خانه
-        </Button>{" "}
+        </Button>
       </Link>
     </div>
   );
