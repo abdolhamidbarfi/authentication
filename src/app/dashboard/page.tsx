@@ -1,11 +1,8 @@
+import WelcomeToUser from "@/components/pages/dashboard";
 import { NextPage } from "next";
 
 const Dashboard: NextPage = () => {
-  return (
-    <div className="">
-      <h1>Dashboard</h1>
-    </div>
-  );
+  return <WelcomeToUser />;
 };
 
 export default Dashboard;
