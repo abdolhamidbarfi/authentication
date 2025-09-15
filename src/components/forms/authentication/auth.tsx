@@ -23,7 +23,7 @@ interface PropsType {
 
 const text = {
   title: "ورود به ترینینگ ای‌آی",
-  desciption: "برای ورود شماره موبایل یا ایمیل خود را وارد کنید",
+  desciption: "برای ورود شماره همراه خود را وارد کنید",
   phoneLabel: "شماره موبایل",
   buttonTitle: "ورود",
   validation: {
